@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="cal.css">
+    <title>Calculator</title>
+    <script>
+     let resetScreen = false;
+    let operatorPressed = false;
+
+        function updateScreen(value) {
+            let currentScreen = document.cal.screen.value;
+
+            if (resetScreen) {
+                document.cal.screen.value = value;
+                resetScreen = false;  
+            } else {
+                if (currentScreen === "0") {
+                    if (value === "0") return; 
+                    if (value !== ".") document.cal.screen.value = value; 
+                    else document.cal.screen.value += value; 
+                } else {
+                    if (value === "." && currentScreen.includes(".")) return;
+                    document.cal.screen.value += value;
+                }
+            }
+        }
+
+        function clearScreen() {
+            document.cal.screen.value = "0";
+            resetScreen = false;
+            operatorPressed = false;
+        }
+
+        function evaluateExpression() {
+            try {
+                let currentScreen = document.cal.screen.value;
+
+                currentScreen = currentScreen.replace(/^0+(?=\d)/, ''); 
+                currentScreen = currentScreen.replace(/^00+/, '0'); 
+
+                if (/[\+\-\*\/\.]$/.test(currentScreen)) {
+                    currentScreen = currentScreen.slice(0, -1);
+                }
+
+                let result = eval(currentScreen);
+
+                if (result === undefined || isNaN(result)) {
+                    document.cal.screen.value = "Error";
+                } else {
+                    document.cal.screen.value = parseFloat(result); 
+                }
+                resetScreen = true; 
+                operatorPressed = false;
+            } catch (error) {
+                document.cal.screen.value = "Error";
+                resetScreen = true;
+            }
+        }
+
+        function addOperator(operator) {
+            let currentScreen = document.cal.screen.value;
+
+            if (/[\+\-\*\/]$/.test(currentScreen.slice(-1))) {
+                document.cal.screen.value = currentScreen.slice(0, -1) + operator;
+            } else {
+                document.cal.screen.value += operator;
+            }
+            resetScreen = false; 
+            operatorPressed = true;
+        }
+    </script>
+</head>
+<body onload="clearScreen()">
+    <div class="box">
+        <div class="square" style="--i:0;"></div>
+        <div class="square" style="--i:1;"></div>
+        <div class="square" style="--i:2;"></div>
+        <div class="square" style="--i:3;"></div>
+        <div class="square" style="--i:4;"></div>
+        <div class="square" style="--i:5;"></div>
+        <div class="cal">
+            <form name="cal">
+                <input type="text" name="screen" readonly>
+            </form>
+            <div class="allBtns">
+                <div class="clear" onclick="clearScreen()">C</div>
+                <div onclick="addOperator('/')">/</div>
+                <div onclick="addOperator('*')">x</div>
+                <div onclick="updateScreen('7')">7</div>
+                <div onclick="updateScreen('8')">8</div>
+                <div onclick="updateScreen('9')">9</div>
+                <div onclick="addOperator('-')">-</div>
+                <div onclick="updateScreen('4')">4</div>
+                <div onclick="updateScreen('5')">5</div>
+                <div onclick="updateScreen('6')">6</div>
+                <div class="plus" onclick="addOperator('+')">+</div>
+                <div onclick="updateScreen('1')">1</div>
+                <div onclick="updateScreen('2')">2</div>
+                <div onclick="updateScreen('3')">3</div>
+                <div onclick="updateScreen('0')">0</div>
+                <div onclick="updateScreen('00')">00</div>
+                <div onclick="updateScreen('.')">.</div>
+                <div onclick="evaluateExpression()" class="equal">=</div>
+            </div>
+        </div>
+    </div>
+    <script src="vanilla-tilt.js"></script>
+    <script>
+        VanillaTilt.init(document.querySelector(".cal"), {
+            max: 20,
+            speed: 800
+        });
+    </script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</body>
+</html>
