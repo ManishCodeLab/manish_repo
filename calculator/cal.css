@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -6,35 +6,41 @@
     text-transform: uppercase;
     user-select: none;
 }
-html{
+
+html {
     font-size: 10px;
 }
-:root{
-    --c1:#a7a6a618;
-    --c2:#8d8d8d1b;
+
+:root {
+    --c1: #a7a6a618;
+    --c2: #8d8d8d1b;
 }
-body{
+
+body {
     position: relative;
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    background: linear-gradient(-90deg,#4d0587e8,#6a5cd4);
+    background: linear-gradient(-90deg, #4d0587e8, #6a5cd4);
 }
+
 .box {
     position: absolute;
     top: 50%;
     left: 50%;
     translate: -50% -50%;
 }
-.cal{
+
+.cal {
     width: 32rem;
     display: flex;
     flex-direction: column;
     background-color: var(--c1);
     backdrop-filter: blur(5px);
     border-radius: 10px;
-    form{
-        input{
+
+    form {
+        input {
             width: 100%;
             font-size: 3.5rem;
             padding: 4rem 1rem;
@@ -44,11 +50,13 @@ body{
             color: white;
         }
     }
+
     .allBtns {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         font-size: 2.5rem;
-        div{
+
+        div {
             cursor: pointer;
             height: 7.5rem;
             display: flex;
@@ -56,26 +64,33 @@ body{
             justify-content: center;
             color: white;
             transition: 0.3s;
-            &:hover{
+
+            &:hover {
                 background-color: var(--c1);
             }
-            &.clear{
+
+            &.clear {
                 grid-column: 3/1;
             }
-            &.plus{
+
+            &.plus {
                 grid-column: -2/-1;
                 grid-row: 3/5;
                 height: 100%;
             }
-            &.equal,&.clear{
+
+            &.equal,
+            &.clear {
                 background-color: var(--c2);
             }
-            &.equal{
+
+            &.equal {
                 border-radius: 0 0 10px 0;
             }
         }
     }
 }
+
 .square {
     position: absolute;
     aspect-ratio: 1;
