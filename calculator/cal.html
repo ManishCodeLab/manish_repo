@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="cal.css" />
+		<title>Calculator</title>
+	</head>
+
+	<body onload="clearScreen()">
+		<div class="calculatorContainer">
+			<div class="backgroundSquare" style="--i: 0"></div>
+			<div class="backgroundSquare" style="--i: 1"></div>
+			<div class="backgroundSquare" style="--i: 2"></div>
+			<div class="backgroundSquare" style="--i: 3"></div>
+			<div class="backgroundSquare" style="--i: 4"></div>
+			<div class="backgroundSquare" style="--i: 5"></div>
+			<div class="calculator">
+				<form name="calculatorForm">
+					<input type="text" name="display" readonly />
+				</form>
+				<div class="buttonContainer">
+					<div
+						class="button clearButton"
+						onclick="clearScreen()">
+						C
+					</div>
+					<div
+						class="button operatorButton"
+						onclick="addOperator('/')">
+						/
+					</div>
+					<div
+						class="button operatorButton"
+						onclick="addOperator('*')">
+						x
+					</div>
+					<div
+						class="button numberButton"
+						onclick="updateScreen('7')">
+						7
+					</div>
+					<div
+						class="button numberButton"
+						onclick="updateScreen('8')">
+						8
+					</div>
+					<div
+						class="button numberButton"
+						onclick="updateScreen('9')">
+						9
+					</div>
+					<div
+						class="button operatorButton"
+						onclick="addOperator('-')">
+						-
+					</div>
+					<div
+						class="button numberButton"
+						onclick="updateScreen('4')">
+						4
+					</div>
+					<div
+						class="button numberButton"
+						onclick="updateScreen('5')">
+						5
+					</div>
+					<div
+						class="button numberButton"
+						onclick="updateScreen('6')">
+						6
+					</div>
+					<div
+						class="button operatorButton plusButton"
+						onclick="addOperator('+')">
+						+
+					</div>
+					<div
+						class="button numberButton"
+						onclick="updateScreen('1')">
+						1
+					</div>
+					<div
+						class="button numberButton"
+						onclick="updateScreen('2')">
+						2
+					</div>
+					<div
+						class="button numberButton"
+						onclick="updateScreen('3')">
+						3
+					</div>
+					<div
+						class="button numberButton"
+						onclick="updateScreen('0')">
+						0
+					</div>
+					<div
+						class="button numberButton"
+						onclick="updateScreen('00')">
+						00
+					</div>
+					<div
+						class="button numberButton"
+						onclick="updateScreen('.')">
+						.
+					</div>
+					<div
+						class="button equalButton"
+						onclick="evaluateExpression()">
+						=
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="cal.js"></script>
+		<script src="vanilla-tilt.js"></script>
+		<script>
+			VanillaTilt.init(document.querySelector(".calculator"), {
+				max: 23,
+				speed: 800,
+			});
+		</script>
+	</body>
+</html>
